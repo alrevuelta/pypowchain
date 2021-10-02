@@ -29,6 +29,7 @@ localhost:5000/getbalance?account=a
 localhost:5000/getmempool
 localhost:5000/getpeerstore
 localhost:5000/mine
+localhost:5000/resolvesplit
 ```
 
 Other nodes can run in a different machine, where `boot-node` defines the entry point to the network, a node which is known.

@@ -89,6 +89,7 @@ class Blockchain:
 
     def add_block(self, block):
         # TODO run more checks
+        # TODO handle blocks out of order
         if self.blocks[-1].hash == block.prev_hash:
             self.blocks.append(block)
 

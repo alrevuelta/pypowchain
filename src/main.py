@@ -77,6 +77,7 @@ def addblock():
         return "Block field can't be empty", 500
 
     block = jsonpickle.decode(block_serialized)
+    blockchain.add_block(block)
     return f"Added block to the blockchain: {block}", 200
 
 # localhost:5000/addpeer?peer=localhost:5001
@@ -123,3 +124,8 @@ def getmempool():
 def mine():
     block = blockchain.mine()
     return f"Done mining, the proof is {str(block)}", 200
+
+@app.route('/resolvesplit', methods=['GET'])
+def resolvesplit():
+    blockchain.resolve_split()
+    return "Done", 200
