@@ -1,9 +1,13 @@
 # pypowchain
 
-Simple Proof Of Work blockchain written in Python, to be used as a tool to explain how the core concepts of the technology work.
+Simple Proof Of Work blockchain written in Python, to be used as a tool to explain how the core concepts of the technology work. Download and install depencies as follows. Python >3.6 must be used.
 
 ```console
-pip install pypowchain
+git clone https://github.com/alrevuelta/pypowchain.git
+cd pypowchain
+pip3 install -r requirements.txt
+cd src
+python3 main.py -p 5000
 ```
 
 ## Run in debug mode
