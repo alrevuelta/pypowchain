@@ -20,15 +20,15 @@ python3 main.py -p 5000
 It exposes the following endpoints
 
 ```console
-#localhost:5000
-#localhost:5000/addtx?sender=A&to=B&amount=100
-#localhost:5000/addpeer?peer=localhost:5000
-#localhost:5000/getlastblock
-#localhost:5000/getblockchain
-#localhost:5000/getbalance?account=a
-#localhost:5000/getmempool
-#localhost:5000/getpeerstore
-#localhost:5000/mine
+localhost:5000
+localhost:5000/addtx?sender=A&to=B&amount=100
+localhost:5000/addpeer?peer=localhost:5000
+localhost:5000/getlastblock
+localhost:5000/getblockchain
+localhost:5000/getbalance?account=a
+localhost:5000/getmempool
+localhost:5000/getpeerstore
+localhost:5000/mine
 ```
 
 Other nodes can run in a different machine, where `boot-node` defines the entry point to the network, a node which is known.

@@ -59,12 +59,14 @@ def index():
 def addtx():
     sender = request.args.get('sender')
     to = request.args.get('to')
-    amount = request.args.get('amount')
+    amount = int(request.args.get('amount'))
 
     if None in [sender, to, amount]:
         return "Fields can't be empty", 500
-
-    tx = blockchain.new_transaction(sender, to, amount)
+    try:
+        tx = blockchain.new_transaction(sender, to, amount)
+    except Exception as e:
+        return f"Error adding new tx: {e}"
     return f"Added tx to the pool: {tx}", 200
 
 # localhost:5000/addblock?block=xx
