@@ -71,6 +71,17 @@ python3 main.py -p 5000 --mine
 
 It will also keep a mesh network with the rest of the peers, broadcasting the blocks that are mined and updating its blockchain if a longer one was detected in the network. Everything explained above applies, with the exception that there is no need to call mine.
 
+## Run in real p2p environment
+
+The code can also be run in a real p2p environment where nodes are not in the same machine/network:
+* Make sure the port is open [using this tool](https://www.yougetsignal.com/tools/open-ports/). If the port you have configured is not open, other peers won't be able to reach you. Note that you might need to open the ports in your router and set up the NAT.
+* Set the flag `node-ip` with your public IP. Other peers will use this IP to reach you.
+
+Note that its ok if not all peers have the ports open, but at least the bootnode has to have them open. The more nodes with open ports the more decentralized the network would be, as it won't rely in a unique node to relay the blocks.
+
+```console
+python3 main.py -p 5000 --boot-node=x.x.x.x:5000 --mine --node-ip=y.y.y.y
+```
 
 # Test
 

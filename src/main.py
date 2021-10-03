@@ -14,6 +14,7 @@ parser.add_argument('-p', '--port', default=5000, type=int, help='', required=Tr
 parser.add_argument('-m', '--mine', action='store_true')
 parser.add_argument('-b', '--boot-node', default=None, type=str, help='')
 parser.add_argument('-i', '--node-id', default=str(uuid4()).split('-')[0], type=str, help='')
+parser.add_argument('-n', '--node-ip', default='localhost', type=str, help='')
 args = parser.parse_args()
 
 # initial balances
@@ -21,7 +22,8 @@ txs = [
     Transaction('0', 'A', 1000),
     Transaction('0', 'B', 1000)
 ]
-blockchain = Blockchain(args.node_id, txs, f"localhost:{args.port}", boot_node=args.boot_node)
+blockchain = Blockchain(args.node_id, txs, f"{args.node_ip}:{args.port}", boot_node=args.boot_node)
+print('Input config', args)
 
 def mine():
     while True:
