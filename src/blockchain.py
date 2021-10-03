@@ -19,7 +19,9 @@ class Blockchain:
             self.add_peer(boot_node)
 
     def new_transaction(self, sender, to, amount):
-        # TODO: Check balances
+        balance = self.get_balance(sender)
+        if amount > balance:
+            raise Exception("not enough balance", amount, balance)
         tx = Transaction(sender, to, amount)
         self.mempool.append(tx)
         return tx
