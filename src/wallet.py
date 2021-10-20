@@ -19,10 +19,8 @@ class Wallet:
         password = input("\nSe necesita una contraseña, escriba una: ")   #Proposing a change 
         passws = password.encode('utf-8') #It is coded to be supported
         #Fernet asks for a length of 32 bytes, to the password used add as many '0's to complete it.
-        while (passws.ljust(32)):
-            passws = passws + b"0"
             
-        pwd = base64.b64encode(passws)
+        pwd = base64.b64encode(passws.ljust(32))
         f = Fernet(pwd)
         private_key = SigningKey.generate()
         public_key = private_key.verify_key
@@ -54,10 +52,8 @@ class Wallet:
         passwd = input("\nSe necesita una contraseña, escriba una: ") #Proposing a change 
         passws = passwd.encode('utf-8') #It is coded to be supported
         #Fernet asks for a length of 32 bytes, to the password used add as many '0's to complete it.
-        while (passws.ljust(32)):
-            passws = passws + b"0"
         
-        pwd = base64.b64encode(passws)
+        pwd = base64.b64encode(passws.ljust(32))
         f = Fernet(pwd)
         #The content is read
         with open('wallet.json', 'rb') as file: 
@@ -86,5 +82,5 @@ class Wallet:
     except (JSONDecodeError, FileNotFoundError):
         keys = generate_wallet()
 
-#wallet.upload_wallet()
+#Wallet.load_wallet()
 #print(wallet.PUBLIC_KEY)
