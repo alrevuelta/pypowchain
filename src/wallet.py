@@ -10,16 +10,16 @@ from cryptography.fernet import Fernet
 
 logger = structlog.get_logger(__name__)
 
-class wallet:
-    PRIVATE_KEY = ""
-    PUBLIC_KEY = ""
+class Wallet:
+    def __init__(self): 
+        self.privatekey = ""
+        self.publickey = ""
     
     def generate_wallet():
-        password = input("\nSe necesita una contraseña, escriba una: ")    
-        passws = password.encode('utf-8') #Se codifica para que lo admita
-        #Fernet pide una longitud de 32 bytes, a la contraseña que se usa
-        #se añaden tantos '0' hasta completarlo
-        while (len(passws) < 32):
+        password = input("\nSe necesita una contraseña, escriba una: ")   #Proposing a change 
+        passws = password.encode('utf-8') #It is coded to be supported
+        #Fernet asks for a length of 32 bytes, to the password used add as many '0's to complete it.
+        while (passws.ljust(32)):
             passws = passws + b"0"
             
         pwd = base64.b64encode(passws)
@@ -31,48 +31,46 @@ class wallet:
             "public_key": "<PERSONALIZABLE>" + public_key.encode(encoder=HexEncoder).decode(),
         }
         
-        with open("wallet.json", "w") as file:
+        with open("wallet.json", "w") as file:  # Propose a change to wallet.json for other method
             json.dump(payload, file)
         logger.info("Genereada una nueva cartera: wallet.json")
         #return payload
-        #En este momento encripta el contenido, es facil ver la clave privada en
-        #este formato
+        #At this point it encrypts the content, it is easy to see the private key in this format.
         with open('wallet.json', 'rb') as file:
                 original = file.read()
                 
         token = f.encrypt(original)
         
-        with open('wallet.json', 'wb') as encrypted_file:
+        with open('wallet.json', 'wb') as encrypted_file: # Propose a change to wallet.json for other method
             encrypted_file.write(token)
         logger.info("wallet.json ha sido asegurada, por el momento")
 
-    def upload_wallet():
-        print("") #Buscar mejor solución
+    def load_wallet():
+        print("") #Search for a better solution
     try:
-        #Desencripta las claves para poder usarlas
-        #Primero tiene que desencriptar el contenido para poder leerlo y usarlo
-        #Luego vuleve a encriptarlo para que siga estando seguro
-        passwd = input("\nSe necesita una contraseña, escriba una: ")
-        passws = passwd.encode('utf-8') #Se codifica para que lo admita
-        #Fernet pide una longitud de 32 bytes, a la contraseña que se usa
-        #se añaden tantos '0' hasta completarlo
-        while (len(passws) < 32):
+        #Decrypt the keys to be able to use them.
+        #First you have to decrypt the content to be able to read and use it.
+        #Then re-encrypt it so it remains secure
+        passwd = input("\nSe necesita una contraseña, escriba una: ") #Proposing a change 
+        passws = passwd.encode('utf-8') #It is coded to be supported
+        #Fernet asks for a length of 32 bytes, to the password used add as many '0's to complete it.
+        while (passws.ljust(32)):
             passws = passws + b"0"
         
         pwd = base64.b64encode(passws)
         f = Fernet(pwd)
-        #Se lee elcontenido
-        with open('wallet.json', 'rb') as file:
+        #The content is read
+        with open('wallet.json', 'rb') as file: 
             encrypted = file.read()
 
         token = f.decrypt(encrypted)
 
         with open('wallet.json', 'wb') as dec_file:
             dec_file.write(token)
-        #Se reescribe en su forma original para que se pueda leer
+        #It is rewritten in its original form so that it can be read
         with open('wallet.json', 'r') as file:
             keys = json.load(file)
-        #Se vuelve a encriptar
+        #Re-encryption
         with open('wallet.json', 'rb') as file:
                 original = file.read()
                 
@@ -82,11 +80,11 @@ class wallet:
             encrypted_file.write(token)
         
         logger.info("Keys cargadas desde wallet.json")
-        PRIVATE_KEY = keys["private_key"]
-        PUBLIC_KEY = keys["public_key"]
+        privatekey = keys["private_key"]
+        publickey = keys["public_key"]
 
     except (JSONDecodeError, FileNotFoundError):
-        keys = cargar_wallet()
+        keys = generate_wallet()
 
 #wallet.upload_wallet()
 #print(wallet.PUBLIC_KEY)
