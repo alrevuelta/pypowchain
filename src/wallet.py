@@ -75,10 +75,6 @@ class Wallet:
             with open(self.wallet_file, 'wb') as encrypted_file:
                     encrypted_file.write(token)
 
-            logger.info("Keys cargadas desde wallet.json")
-            privatekey = keys["private_key"]
-            publickey = keys["public_key"]
-
             logger.info("Keys loaded from " + self.wallet_file)
                 self.privatekey = keys["private_key"]
                 self.publickey = keys["public_key"]
